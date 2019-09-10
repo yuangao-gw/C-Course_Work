@@ -1,0 +1,50 @@
+#include<iostream>
+using namespace std;
+class Animal
+{
+	protected:
+		char sex;
+	public:
+		virtual void soar() = 0;
+		virtual void eat() = 0;
+};
+class Tiger:public Animal
+{
+	public:
+		void soar();
+		void eat();
+};
+void Tiger::soar()
+{
+	cout<<"tiger"<<" ßã"<<endl;
+}
+void Tiger::eat()
+{
+	cout<<"tiger"<<" ³ÔÈâ"<<endl;
+}
+class Sheep:public Animal
+{
+	public:
+		void soar();
+		void eat();
+};
+void Sheep::soar()
+{
+	cout<<"sheep"<<" ºð"<<endl;
+}
+void Sheep::eat()
+{
+	cout<<"sheep"<<" ³Ô²Ý"<<endl;
+}
+int main()
+{
+	Tiger t1,t2;
+	Sheep s1,s2;
+	Animal *array[4]={&t1, &s1, &t2, &s2};
+	for(int i = 0; i < 4; i++)
+	{
+		array[i]->eat();
+		array[i]->soar();
+	}
+	return 0;
+}

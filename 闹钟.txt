@@ -1,0 +1,174 @@
+#include<iostream.h>
+#include<cstdlib>
+#include<iomanip.h>
+#include<conio.h>
+#include<ctime>
+class Time
+{
+private:
+	int hour;
+	int minute;
+	int second;
+public: 
+	Time(int h, int m, int s): hour(h), minute(m),second(s) {};
+	Time();
+	friend ostream & operator << (ostream & output, Time & d);
+	friend istream & operator >> (istream & input, Time & d);
+	Time operator ++ ();
+	Time operator ++ (int);
+	Time operator -- ();
+	Time operator -- (int);
+	Time operator + (int n);
+	friend bool operator != (Time a, Time b);
+};
+Time::Time()
+{
+	 long now = time(NULL);
+	tm local = *localtime(& now);
+	hour = local.tm_hour;
+	minute = local.tm_min;
+	second = local.tm_sec;
+}
+istream & operator >> (istream & input, Time & d)
+{
+	input>>d.hour>>d.minute>>d.second;
+	return input;
+}
+ostream & operator << (ostream & output, Time & d)
+{
+	output<<setfill('0')<<setw(2)<<d.hour<<":";
+	output<<setfill('0')<<setw(2)<<d.minute<<":";
+	output<<setfill('0')<<setw(2)<<d.second<<endl;
+	return output;
+}
+Time Time::operator ++ ()
+{
+	second = second++;
+	minute = minute + second/60;
+	second = second%60;
+	hour = hour + minute/60;
+	minute = minute%60;
+	return *this;
+}
+Time Time::operator ++ (int)
+{
+	Time d(*this);
+	++(*this);
+	return d;
+}
+Time Time::operator -- ()
+{
+	second--;
+	if(second < 0)
+	{
+		minute--;
+		second = second + 60;
+		if(minute < 0)
+		{
+			hour--;
+			minute = minute + 60;
+		}
+	}
+	return *this;
+}
+Time Time::operator -- (int)
+{
+	Time d(*this);
+	--(*this);
+	return d;
+}
+bool operator != (Time a, Time b)
+{
+	if(a.hour-b.hour == 0 && a.minute - b.minute == 0 && a.second - b.second == 0)
+		return false;
+	else
+		return true;
+}
+Time Time::operator + (int n)
+{
+	Time t(*this);
+	while(n--)
+		t++;
+	return t;
+}
+int main()
+{
+	int n;
+	do
+	{
+		system("cls");
+		cout<<"1、显示当前时间"<<endl;
+		cout<<"2、设置闹钟"<<endl;
+		cout<<"3、计时"<<endl;
+		cout<<"4、倒计时"<<endl;
+		cin>>n;
+		
+		switch(n)
+		{
+			case 1:
+				{
+					Time t;
+					cout<<t;
+					break;
+				}
+			case 2:
+				{
+					Time t1;
+					long a, b;
+					cin>>t1;
+					a=time(NULL);//计算差值
+					Time t2;//输入后提取当前时间
+					while(t2 != t1)
+					{
+						b =time(NULL);
+						if(b - a == 1) 
+						{
+							system("cls");
+						    t2++;
+							cout<<t2;
+							a = b;
+						}
+					}
+					cout<<"时间到"<<endl;
+						system("pause");
+					break;
+				}
+			case 3:
+				{	
+					system("cls");
+					Time x(0,0,0);
+					long a = time(NULL), b;
+					while(cin.get() == '\n')
+					{
+						b = time(NULL);
+						x = x+(b-a);
+						cout<<x;
+						a = b;
+					}
+					break;
+				}
+			case 4:
+				{
+					Time x(0,0,0), t;
+					long a, b;
+					cin>>t;
+					a = time(NULL);
+					t++;
+					while(t != x)
+					{
+						b = time(NULL);
+						if(b - a == 1)
+						{
+							system("cls");
+							--t;
+							cout<<t;
+							a = b;
+						}
+					}
+					cout<<"倒计时结束"<<endl;
+						system("pause");
+				}
+		}
+	}while(n != 0);
+	return 0;
+}

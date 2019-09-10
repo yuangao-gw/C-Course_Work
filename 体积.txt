@@ -1,0 +1,68 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class V
+{
+private:
+	int length;
+	int wigth;
+	int height;
+public:
+	void setdata();
+	void display();
+};
+void V::setdata()
+{
+	cin>>length>>wigth>>height;
+}
+void V::display()
+{
+	cout<<length*wigth*height<<endl;
+}
+int main()
+{
+	V v1;
+	v1.setdata();
+	v1.display();
+	return 0;
+}
+
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+class V
+{
+private:
+	int length;
+	int wigth;
+	int height;
+public:
+	void setdata();
+	void display();
+	int cul();
+};
+void V::setdata()
+{
+	cin>>length>>wigth>>height;
+}
+void V::display()
+{
+	cout<<cul()<<endl;
+}
+int V::cul()
+{
+	return length*wigth*height;
+}
+int main() 
+{
+	V a,b,c;
+	a.setdata();
+	a.display();
+	b.setdata();
+	b.display();
+	c.setdata();
+	c.display();
+	return 0;
+}

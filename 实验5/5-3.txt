@@ -1,0 +1,151 @@
+#include<iostream>
+#define PI 3.14159
+using namespace std;
+class Shape
+{
+	public:
+		Shape() {}
+		virtual double getArea() const = 0;
+		virtual void print() const = 0;
+};
+class TwoDimensionalShape:public Shape
+{
+	public:
+		TwoDimensionalShape() {}
+};
+class Circle:public TwoDimensionalShape
+{
+	public:
+		Circle(double);
+		double getArea() const;
+		void print() const;
+	private:
+		double radius;
+};
+Circle::Circle(double r)
+{
+	radius = r;
+}
+double Circle::getArea() const
+{
+	double area;
+	area = PI*radius*radius;
+	return area;
+}
+void Circle::print() const
+{
+	cout<<"s = "<<getArea()<<endl;
+}
+class Rectangle:public TwoDimensionalShape
+{
+	public:
+		Rectangle(double, double);
+		double getArea() const;
+		void print() const;
+	private:
+		double length;
+		double width;
+};
+Rectangle::Rectangle(double l,double w)
+{
+	length = l;
+	width = w;
+}
+double Rectangle::getArea() const
+{
+	return length*width;
+}
+void Rectangle::print() const
+{
+	cout<<"s = "<<getArea()<<endl;
+}
+class ThreeDimensionalShape:public Shape
+{
+	public:
+		ThreeDimensionalShape(){}
+		virtual double getVolume() const = 0;
+};
+class Sphere:public ThreeDimensionalShape
+{
+	public:
+		Sphere(double);
+		double getVolume() const;
+		double getArea() const;
+		void print() const;
+	private:
+		double radius;
+};
+Sphere::Sphere(double r)
+{
+	radius = r;
+}
+double Sphere::getVolume() const
+{
+	double vol;
+	vol = PI*radius*radius*radius*4/3;
+	return vol;
+}
+double Sphere::getArea() const
+{
+	double area;
+	area = PI*radius*radius*4;
+	return area;
+}
+void Sphere::print() const
+{
+	cout<<"v = "<<getVolume()<<", ";
+	cout<<"s = "<<getArea()<<endl;
+}
+class Cube:public ThreeDimensionalShape
+{
+	public:
+		Cube(double,double,double);
+		double getVolume() const;
+		double getArea() const;
+		void print() const;
+	private:
+		double length;
+		double width;
+		double height;
+};
+Cube::Cube(double l,double w,double h)
+{
+	length = l;
+	width = w;
+	height = h;
+}
+double Cube::getVolume() const
+{
+	return length*width*height;
+}
+double Cube::getArea() const
+{
+	return 2*(length*width+width*height+height*length);
+}
+void Cube::print() const
+{
+	cout<<"v = "<<getVolume()<<", ";
+	cout<<"s = "<<getArea()<<endl;
+}
+int main()
+{
+	const int SIZE = 4;
+	Sphere s(6.5);
+	Cube c(3,2,1);
+	Circle cl(5);
+	Rectangle r(5,3.1);
+	Shape *ptr[SIZE]={&s, &c, &cl, &r};
+	/*ThreeDimensionalShape *p[SIZE];
+	for(int i = 0; i < SIZE; i++)
+	{
+		p[i] = dynamic_cast <ThreeDimensionalShape*>(ptr[i]);
+		if(p[i]!=0)
+			cout<<"v = "<<p[i]->getVolume()<<",";
+		cout<<"s = "<<ptr[i]->getArea()<<endl;
+	}*/
+	for(int i = 0; i < SIZE; i++)
+	{
+		ptr[i] ->print();
+	}
+	return 0;
+}

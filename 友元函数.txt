@@ -1,0 +1,158 @@
+#include<iostream>
+using namespace std;
+class Point
+{
+public:
+	void set();
+	int getX()
+	{
+		return x;
+	}
+	int getY()
+	{
+		return y;
+	}
+private:
+	int x;
+	int y;
+};
+
+void Point::set()
+{
+	cin>>x>>y;
+}
+
+class Circl
+{
+public:
+	int getX()
+	{
+		return x;
+	}
+	int getY()
+	{
+		return y;
+	}
+	int getR()
+	{
+		return r;
+	}
+	void set();
+	void display(Point p);
+private:
+	int x;
+	int y;
+	int r;
+};
+
+void Circl::set()
+{
+	cin>>x>>y>>r;
+}
+
+int cal(Point p, Circl c)
+{
+	int s;
+	s = (p.getX()-c.getX())*(p.getX()-c.getX())+(p.getY()-c.getY())*(p.getY()-c.getY());
+	if(s == c.getR()*c.getR())
+		return 0;
+	else if(s > c.getR()*c.getR())
+		return 1;
+	else
+		return -1;
+}
+
+void Circl::display(Point p)
+{
+	int f = cal(p,*this);
+	if(f == 0)
+		cout<<"ON"<<endl;
+	else if(f == 1)
+		cout<<"OUT"<<endl;
+	else if(f == -1)
+		cout<<"IN"<<endl;
+}
+
+int main()
+{
+	Point p; Circl c;
+	p.set();
+	c.set();
+	cal(p,c);
+	c.display(p);
+
+	return 0;
+}
+
+
+
+
+
+
+#include<iostream>
+using namespace std;
+class Circl;
+class Point
+{
+public:
+	friend int cal(Point &p, Circl &c);
+	void set();
+private:
+	int x;
+	int y;
+};
+
+void Point::set()
+{
+	cin>>x>>y;
+}
+
+class Circl
+{
+public:
+	friend int cal(Point &p, Circl &c);
+	void set();
+	void display(Point p);
+private:
+	int x;
+	int y;
+	int r;
+};
+
+void Circl::set()
+{
+	cin>>x>>y>>r;
+}
+
+int cal(Point &p, Circl &c)
+{
+	int s;
+	s = (p.x-c.x)*(p.x-c.x)+(p.y-c.y)*(p.y-c.y);
+	if(s == c.r*c.r)
+		return 0;
+	else if(s > c.r*c.r)
+		return 1;
+	else
+		return -1;
+}
+
+void Circl::display(Point p)
+{
+	int f = cal(p,*this);
+	if(f == 0)
+		cout<<"ON"<<endl;
+	else if(f == 1)
+		cout<<"OUT"<<endl;
+	else
+		cout<<"IN"<<endl;
+}
+
+int main()
+{
+	Point p; Circl c;
+	p.set();
+	c.set();
+	c.display(p);
+
+	return 0;
+}

@@ -1,0 +1,58 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class Time
+{
+public:
+	int hour;
+	int min;
+	int sec;
+};
+int main()
+{
+	Time t1;
+	Time &t2 = t1;
+	cin>>t2.hour;
+	cin>>t2.min;
+	cin>>t1.sec;
+	cout<<t1.hour<<':'<<t1.min<<':'<<t2.sec<<endl;  
+	return 0;
+}
+
+#include<iostream>
+#include<string>
+using namespace std;
+class Time
+{
+private:
+	int hour;
+	int min;
+	int sec;
+public:
+	void setdata();
+	void display();
+};
+void Time::setdata()
+{
+	cin>>hour>>min>>sec;
+}
+void Time::display()
+{
+	cout<<hour<<':'<<min<<':'<<sec<<endl;
+}
+int main()
+{
+	Time t1;
+	Time &t2 = t1;
+	t1.setdata();
+	t2.display();
+	return 0;
+}
+int main()
+{
+	Time t1;
+	Time *p;
+	t1.setdata();
+	(*p).display();
+	return 0;
+}

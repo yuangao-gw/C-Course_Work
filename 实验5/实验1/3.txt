@@ -1,0 +1,24 @@
+#include<iostream>
+#include<math.h>
+#include<iomanip>
+using namespace std;
+int main()
+{
+	int i, n, k, count=0;
+	for( i=2; i<=101; i++)
+	{
+		k=sqrt(i);
+		for(n=2; n<=k; n++)
+			if(i%n == 0)
+				break;
+			if(n>k)
+			{
+					count++;
+				cout<<setw(4)<<i;
+				if(count%5==0)
+					cout<<endl;
+			}
+	}
+	return 0;
+}
+
